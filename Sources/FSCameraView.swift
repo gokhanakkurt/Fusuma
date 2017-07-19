@@ -13,6 +13,7 @@ import Photos
 
 @objc protocol FSCameraViewDelegate: class {
     func cameraShotFinished(_ image: UIImage)
+    func cameraViewCameraRollAuthorized()
 }
 
 final class FSCameraView: UIView, UIGestureRecognizerDelegate {
@@ -167,6 +168,8 @@ final class FSCameraView: UIView, UIGestureRecognizerDelegate {
             }
             
         case .denied, .restricted:
+            
+            self.delegate?.cameraViewCameraRollAuthorized()
             
             stopCamera()
             
