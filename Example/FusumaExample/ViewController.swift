@@ -39,9 +39,9 @@ class ViewController: UIViewController, FusumaDelegate {
         let fusuma = FusumaViewController()
         
         fusuma.delegate = self
-        fusuma.cropHeightRatio = 0.6
-        fusuma.defaultMode     = .library
+        fusuma.cropHeightRatio = 1.0
         fusuma.allowMultipleSelection = true
+//        fusuma.availableModes = [.video]
         fusumaSavesImage = true
 
         self.present(fusuma, animated: true, completion: nil)
@@ -140,8 +140,14 @@ class ViewController: UIViewController, FusumaDelegate {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
             
         })
+
+        guard let vc = UIApplication.shared.delegate?.window??.rootViewController,
+            let presented = vc.presentedViewController else {
+            
+            return
+        }
         
-        self.present(alert, animated: true, completion: nil)
+        presented.present(alert, animated: true, completion: nil)
     }
     
     func fusumaClosed() {
